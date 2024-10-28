@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coraline's TicTacToe</title>
+    <style>
+        h1 {
+            font-family:'Times New Roman', Times, serif;
+            color: yellow;
+        }
+        body {
+            background-image: url("backgroundCoraline.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            height: 100vh;
+        }
+        #resp_section {
+            margin-top: 100px;
+			margin: auto;
+            clear: both;
+			color: white;
+			font-weight: bold;
+			text-align: center;
+        }
+        .squares {
+            display: grid;
+            gap: 5px;
+            grid-template-columns: repeat(3, 150px);
+            grid-template-rows: repeat(3, 150px);
+            max-width: 450px;
+			margin-right: auto;
+        }
+        .squares > div {
+            padding: 50px;
+            width: 50px;
+            background-color: white;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+			opacity: .2;
+        }
+		div > div.clickedx {
+            opacity: 1;
+			background-color: transparent;
+			background-image: url("thecat.webp");
+            background-size: cover;
+            background-position: center;
+        }
+		div > div.clickedy {
+            opacity: 1;
+			background-color: transparent;
+			background-image: url("button.png");
+            background-size: cover;
+            background-position: center;
+        }
+        /* div > div img {
+            opacity: 1;
+        } */
+		div.title {
+			margin-left: auto;
+            text-align: center;
+			/* object-fit: cover;  */
+        }
+		div.rules {
+			color: white;
+		}
+		.highlight {
+          color: yellow;
+          font-weight: bold;
+        }
+		.coraline-container {
+            text-align: center;
+            margin-right: 3%;
+        }
+        .coraline-container img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+	<div class="title">
+        <img src="logo.webp" alt="sue">
+		<div class = "rules">
+			TIC TAC TOE <br> <br>
+			Player 1 will be the <span class = "highlight">mouse</span> <br>
+			Player 2 will be the <span class = "highlight">button</span> <br>
+			To reset the game, select ctrl + r, or click refresh
+		</div>
+
+    </div>
+    <div class="coraline-container"> 
+        <img src="coraline.png" alt="sue">
+    </div>
+    <div class="squares">
+        <div id="0"></div>
+        <div id="1"></div>
+        <div id="2"></div>
+        <div id="3"></div>
+        <div id="4"></div>
+        <div id="5"></div>
+        <div id="6"></div>
+        <div id="7"></div>
+        <div id="8"></div>
+    </div>
+    <div id="resp_section">
+        <span id="response"></span>
+    </div>
+
+    <script>
+		count = 0
+        player = "x";
+        document.querySelectorAll('.squares > div').forEach(function(button) {
+            button.onclick = placePiece;
+        }); 
+		gameOver = false;
+        function placePiece(event) {
+            if (!event.target.innerHTML) {
+                // event.target.innerHTML = `<img src="button.png" alt="button">`;
+				if (!gameOver) {
+					if (player == "x") {
+						event.target.classList.add('clickedx');
+						count += 1
+						make_move();
+						if (count == 9 && !gameOver) {
+						gameOver = true;
+						document.getElementById('response').innerText = `GAME OVER\nTIE`;
+						var gameOverMessage = document.getElementById('response');
+						changeColor(gameOverMessage);
+						setInterval(function() {
+							changeColor(gameOverMessage);
+						}, 100);
+						event.target.onclick = null;
+					}
+					}
+					else if (player == "y") {
+						count+=1
+						event.target.classList.add('clickedy');
+						make_move();
+						if (count == 9 && !gameOver) {
+							gameOver = true;
+							document.getElementById('response').innerText = `GAME OVER\nTIE`;
+							var gameOverMessage = document.getElementById('response');
+							changeColor(gameOverMessage);
+							setInterval(function() {
+								changeColor(gameOverMessage);
+							}, 100);
+							event.target.onclick = null;
+						}
+					}
+					event.target.onclick = null;
+				}
+				else {
+					console.log("NO");
+				}
+            }
+        }
+
+		function changeColor(element) {
+            var colors = ["lightred", "lightgreen", "lightblue", "yellow", "orange", "lightpurple"];
+            var randomColor = colors[Math.floor(Math.random() * colors.length)];
+            element.style.color = randomColor;
+        }
+
+        function make_move() {
+			if (player == "x") {
+				player = "y"
+			}
+			else {
+				player = "x"
+			}
+			if (checkWin(player) == "fullRow") {
+				var gameOverMessage = document.getElementById('response');
+                changeColor(gameOverMessage);
+                setInterval(function() {
+                    changeColor(gameOverMessage);
+                }, 100);
+
+				if (player == "y") {
+					document.getElementById('response').innerText = `GAME OVER\nMOUSE WINS`;
+				}
+				else {
+					document.getElementById('response').innerText = `GAME OVER\nBUTTON WINS`;
+				}
+			}
+        }
+
+		function checkWin(letter) {
+
+			var one = window.getComputedStyle(document.getElementById('0'));
+			var two = window.getComputedStyle(document.getElementById('1'));
+			var three = window.getComputedStyle(document.getElementById('2'));
+			var four = window.getComputedStyle(document.getElementById('3'));
+			var five = window.getComputedStyle(document.getElementById('4'));
+			var six = window.getComputedStyle(document.getElementById('5'));
+			var seven = window.getComputedStyle(document.getElementById('6'));
+			var eight = window.getComputedStyle(document.getElementById('7'));
+			var nine = window.getComputedStyle(document.getElementById('8'));
+
+			if (letter == "x") {
+				if (one.backgroundImage.includes('button.png') && two.backgroundImage.includes('button.png') && three.backgroundImage.includes('button.png')) {
+					gameOver = true;
+					return "fullRow";
+				}
+				else if (four.backgroundImage.includes('button.png') && five.backgroundImage.includes('button.png') && six.backgroundImage.includes('button.png')) {
+					gameOver = true;
+					return "fullRow";
+				}
+				else if (seven.backgroundImage.includes('button.png') && eight.backgroundImage.includes('button.png') && nine.backgroundImage.includes('button.png')) {
+					gameOver = true;
+					return "fullRow";
+				}
+				else if (one.backgroundImage.includes('button.png') && four.backgroundImage.includes('button.png') && seven.backgroundImage.includes('button.png')) {
+					gameOver = true;
+					return "fullRow";
+				}
+				else if (two.backgroundImage.includes('button.png') && five.backgroundImage.includes('button.png') && eight.backgroundImage.includes('button.png')) {
+					gameOver = true;
+					return "fullRow";
+				}
+				else if (three.backgroundImage.includes('button.png') && six.backgroundImage.includes('button.png') && nine.backgroundImage.includes('button.png')) {
+					gameOver = true;
+					return "fullRow";
+				}
+				else if (one.backgroundImage.includes('button.png') && five.backgroundImage.includes('button.png') && nine.backgroundImage.includes('button.png')) {
+					gameOver = true;
+					return "fullRow";
+				}
+				else if (three.backgroundImage.includes('button.png') && five.backgroundImage.includes('button.png') && seven.backgroundImage.includes('button.png')) {
+					gameOver = true;
+					return "fullRow";
+				}
+				else {
+					return "nope"
+				}
+			}
+		else {
+			if (one.backgroundImage.includes('thecat.webp') && two.backgroundImage.includes('thecat.webp') && three.backgroundImage.includes('thecat.webp')) {
+					gameOver = true;
+					return "fullRow";
+				}
+				else if (four.backgroundImage.includes('thecat.webp') && five.backgroundImage.includes('thecat.webp') && six.backgroundImage.includes('thecat.webp')) {
+					gameOver = true;
+					return "fullRow";
+				}
+				else if (seven.backgroundImage.includes('thecat.webp') && eight.backgroundImage.includes('thecat.webp') && nine.backgroundImage.includes('thecat.webp')) {
+					gameOver = true;
+					return "fullRow";
+				}
+				else if (one.backgroundImage.includes('thecat.webp') && four.backgroundImage.includes('thecat.webp') && seven.backgroundImage.includes('thecat.webp')) {
+					gameOver = true;
+					return "fullRow";
+				}
+				else if (two.backgroundImage.includes('thecat.webp') && five.backgroundImage.includes('thecat.webp') && eight.backgroundImage.includes('thecat.webp')) {
+					gameOver = true;
+					return "fullRow";
+				}
+				else if (three.backgroundImage.includes('thecat.webp') && six.backgroundImage.includes('thecat.webp') && nine.backgroundImage.includes('thecat.webp')) {
+					gameOver = true;
+					return "fullRow";
+				}
+				else if (one.backgroundImage.includes('thecat.webp') && five.backgroundImage.includes('thecat.webp') && nine.backgroundImage.includes('thecat.webp')) {
+					gameOver = true;
+					return "fullRow";
+				}
+				else if (three.backgroundImage.includes('thecat.webp') && five.backgroundImage.includes('thecat.webp') && seven.backgroundImage.includes('thecat.webp')) {
+					gameOver = true;
+					return "fullRow";
+				}
+				else {
+					return "nope"
+				}
+		}
+		}
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Super SVG Page!!</title>
+  <style type="text/css">
+
+
+    div.box {
+      height: 120px;
+      width: 120px;
+      margin: 8px;
+      padding: 10px; 
+      background-color: #d0d0d0;
+      display: inline-block;
+      vertical-align: top;      /*makes the divs aligned at the top */
+    }
+    .svg_container {
+      width: 50%;
+      margin : auto;
+      padding : 0;
+    }
+
+    svg {
+      border-width: 1px;
+      border-color: #000;
+      border-style: solid;
+      margin : 0;
+      padding : 0;
+    }
+
+    .buttonlike {
+      width: 100px;
+      height: 50px;
+      margin: auto;
+      background-color: #00FFFF;
+      text-align: center;
+    }
+
+  </style>
+
+</head>
+<body>
+
+  <div class="buttonlike" id="add_stars">
+    Add Orbs
+  </div>
+  <div class="buttonlike" id="add_blue_stars">
+    Add Orbs
+  </div>
+
+  <div class="svg_container">
+    <svg viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg">
+
+      <g id="orbs">
+      </g>
+
+    </svg>
+  </div>
+
+
+  <script>
+    // document.querySelector('#add_stars').onclick = makeCircles
+    // document.querySelectorAll('#buttonlike').onclick = makeCircles;
+    document.querySelectorAll('.buttonlike').forEach(function(button) {
+      button.onclick = makeCircles;
+    });
+
+    function makeCircles() {
+      // let group_tag_element = document.querySelector('#orbs');
+      console.log("Hello!")
+      // for (let i = 0; i < 10; i++) {
+      //     let circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          
+      //     circle.setAttribute('cx', Math.random() * 500); 
+      //     circle.setAttribute('cy', Math.random() * 300); 
+      //     circle.setAttribute('r', 10); 
+      //     circle.setAttribute('fill', 'red'); 
+          
+      //     group_tag_element.appendChild(circle);
+      // }      
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* h1 {
+            text-align: center;
+        } */
+        @font-face {
+            font-family: 'Coraline';
+            src: url("C:\Users\zamza\Downloads\Web\CoralinesCat.otf") format('opentype');
+        }
+        h1 {
+            font-family:'Times New Roman', Times, serif;
+            color: yellow;
+        }
+        body {
+            background-image: url("backgroundCoraline.jpg");
+            background-repeat:no-repeat;
+            background-size:cover;
+        }
+        #resp_section {
+			background-color: #EEE;
+			margin-top: 100px;
+			clear: both;
+		}
+        .squares {
+            margin: auto;
+            display: grid;
+            gap: 5px;
+            grid-template-columns: repeat(3, 150px);
+            grid-template-rows: repeat(3, 150px);
+            max-width: 450px;
+        }
+
+        div > div {
+            padding: 50px;
+            width: 50px;
+            background-color: white;
+            opacity: 0.2;
+            border-radius: 5px;
+            display: grid;
+            place-items: center;
+        }
+        div.title {
+            margin: auto;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="title">
+        <img src="logo.webp" alt="sue">
+    </div>
+    <div class = "title">
+        <img src="coraline.png" alt="sue">
+    </div>
+    <!-- <h1>Tic Tac Toe</h1> -->
+    <!-- <h1>tic tac toe</h1> -->
+    <div class="squares">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>  
+      </div>
+    <div id="resp_section">
+		<span id="response"></span>
+	</div>
+    <script>
+        
+        player = "x";
+        document.querySelectorAll('.squares').forEach(function(button) {
+        button.onclick = placePiece; }); 
+        // let game_state;
+
+        function placePiece() {
+            console.log("hello!");
+            make_move();
+        }
+
+        function make_move() {
+            console.log(player)
+            player += "y"
+        }
+
+        // let response_elem = document.querySelector('#response');
+        //     function checkWin(board) {
+        //         response_elem.innerHTML = `Hi!`;
+        //         console.log("Hi")
+        //     }
+    
+        </script>
+</body>
+</html>
